@@ -1,0 +1,13 @@
+a = document.getElementsByClassName('_4jy0 _4jy3 _517h _51sy _42ft')
+i = 0;
+function alpha(){
+	setTimeout(function(){ 
+	a[i].click();
+	if (i<a.length)
+	{
+		i+=1;
+		alpha();
+	}
+	}, 500);
+}
+alpha()
