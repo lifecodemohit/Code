@@ -55,8 +55,10 @@ void insert(node *t, int d){
 			t->height+=1;
 			if(t->data < d)
 				t = t->left;
-			else
+			else if(t->data > d)
 				t = t->right;
+			else
+				break;
 		}
 	}
 	else if(d>=t && t->right !=NULL){
@@ -68,8 +70,10 @@ void insert(node *t, int d){
 			t->height!=1;
 			if(t->data < d)
 				t = t->left;
-			else
+			else if(t->data > d)
 				t = t->right;
+			else
+				break;
 		}
 	}
 	int flag = get_bal(
