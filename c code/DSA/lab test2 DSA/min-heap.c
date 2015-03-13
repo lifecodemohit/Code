@@ -24,17 +24,15 @@ int main(){
 	char first_name[100];//array for the first name 
 	char last_name[100];//array for the last name
 	int index;//index number for delete operation
-	scanf("%d ", &t);
+	scanf("%d", &t);
 	while(t>0){
 		scanf("%s", operation);
 		if(strcmp(operation, "InitHeap")==0){
 			scanf("%s %s", first_name, last_name);
-			getchar();
 			InitHeap(first_name, last_name);
 			}
 		else if(strcmp(operation, "Insert")==0){
 			scanf("%s %s", first_name, last_name);
-			getchar();
 			Insert(first_name, last_name);
 			}
 		else if(strcmp(operation, "FindMin")==0){
@@ -47,7 +45,7 @@ int main(){
 			DeleteMin();
 			}
 		else if(strcmp(operation, "Delete")==0){
-			scanf("%d ", &index);
+			scanf("%d", &index);
 			Delete(index);
 			}
 		t--;
@@ -104,18 +102,18 @@ int percolateUp(int i){
 			swapElements(&arr[findParent(arr[i])], &arr[i]);
 			percolateUp(i/2 -1);
 		}
-
+/*
 		else if(x==0){
 			int y = strcmp(parent_last, child_last);
 			if(y<=0){
-				return a.heap_index;
+				return arr[i].heap_index;
 			}
 			else if(y==1){
 				swapElements(&parent, &a);
 				percolateUp(i/2 -1);
 			}
 		}
-
+*/
 	}
 	else{
 		return arr[i].heap_index;
