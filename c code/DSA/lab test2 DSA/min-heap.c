@@ -12,7 +12,9 @@ int InitHeap(char *first_name, char *last_name);
 int findParent(Element a); // returns the index of the element a;
 int swap(int *a, int *b);
 int swapElements(Element *a, Element *b);
-int percolateUp(int i);
+Element percolateUp(int i);
+int smallerChild(int i);
+int percolateDown(int i);
 int Insert(char *first_name, char *last_name);
 int Print();
 int FindMin();
@@ -46,7 +48,7 @@ int main(){
 			}
 		else if(strcmp(operation, "Delete")==0){
 			scanf("%d", &index);
-			Delete(index);
+			Delete(index-1);
 			}
 		t--;
 	}
@@ -54,6 +56,7 @@ int main(){
 }
 
 int InitHeap(char *first, char *last){
+	n = 0;
 	Element temp;
 	strcpy(temp.first_name,first);
 	strcpy(temp.last_name,last);
@@ -63,7 +66,7 @@ int InitHeap(char *first, char *last){
 	return;
 }
 int findParent(Element a){
-	return (a.heap_index/2) -1;
+	return (a.heap_index/2) -1;//returns the index of the parent of ele a
 }
 int swap(int *a, int *b){
 	int temp;
@@ -80,7 +83,7 @@ int swapElements(Element *a, Element *b){
 	swap(&a->heap_index, &b->heap_index);
 	return;
 }
-int percolateUp(int i){
+Element percolateUp(int i){
 	if(arr[i].heap_index>1){
 		Element parent;
 		parent = arr[findParent(arr[i])];
@@ -95,28 +98,28 @@ int percolateUp(int i){
 		strcpy(child_last,arr[i].last_name);
 		int x = strcmp(parent_first, child_first);
 		
-		if(x<-1){
-			return arr[i].heap_index;
+		if(x<0){
+			return arr[i];
 		}
 		else if(x>0){
 			swapElements(&arr[findParent(arr[i])], &arr[i]);
-			percolateUp(i/2 -1);
+			percolateUp((i-1)/2 );
 		}
-/*
+
 		else if(x==0){
 			int y = strcmp(parent_last, child_last);
 			if(y<=0){
-				return arr[i].heap_index;
+				return arr[i];
 			}
-			else if(y==1){
-				swapElements(&parent, &a);
-				percolateUp(i/2 -1);
+			else if(y>0){
+				swapElements(&arr[findParent(arr[i])], &arr[i]);
+				percolateUp((i-1)/2 );
 			}
 		}
-*/
+
 	}
 	else{
-		return arr[i].heap_index;
+		return arr[i];
 	}
 
 }
@@ -148,29 +151,46 @@ int smallerChild(int i){
 			return 2*i + 2;
 		}
 	}
-	else{
+	else if(n<= (2*i) + 2){
 		return 2*i + 1;
 	}
 }
 int percolateDown(int i){
-	while(2*i + 2 <n){
+	if(2*i + 1 <= n){
 		int j = smallerChild(i);
-		int t = arr[i].heap_index;
-		arr[i] = arr[j];
-		arr[i].heap_index = t;
-		percolateDown(j);
+		int x = strcmp(arr[i].first_name, arr[j].first_name);
+		if(x>0){
+			swapElements(&arr[i], &arr[j]);
+			percolateDown(j);
+		}
+		else if(x<0){
+			return;
+		}
+		else{
+			int y = strcmp(arr[i].last_name, arr[j].last_name);
+			if(y<=0){
+				return;
+			}
+			else{
+				swapElements(&arr[i], &arr[j]);				
+				percolateDown(j);
+			}
+		}
 	}
-
+	else{
+		arr[i].heap_index = i+1;
+	}
 	return;
 }
 int Insert(char *first, char *last){
 	n++;
-	Element temp;
+	Element temp, temp2;
 	strcpy(temp.first_name,first);
 	strcpy(temp.last_name,last);
 	temp.heap_index = n;
 	arr[n-1] = temp;
-	printf("%d\n", percolateUp(n-1));
+	temp2 = percolateUp(n-1);
+	printf("%d\n", temp2.heap_index);
 	return;
 }
 int Print(){
@@ -189,12 +209,27 @@ int FindMin(){
 	return;
 }
 int DeleteMin(){
-	percolateDown(0);
-	n--;	
+	if(n>0){
+		printf("%s %s\n", arr[0].first_name, arr[0].last_name);
+		arr[0] = arr[n-1];
+		arr[0].heap_index = 1;
+		n--;
+		percolateDown(0);
+	}
+	else
+		printf("-1\n");	
 	return;
 }
-int Delete(int index){
-	
+int Delete(int i){
+	if(n>i){
+		printf("%s %s\n", arr[i].first_name, arr[i].last_name);
+		arr[i] = arr[n-1];
+		arr[i].heap_index = i+1;
+		n--;
+		percolateDown(i);
+	}
+	else
+		printf("-1\n");	
 	return;
 }
 
