@@ -27,17 +27,53 @@ graph *createGraph(int num){
 	my_graph->arr = tempArr;
 	return my_graph;
 }
+void addNode(graph *G, int n){
+	int k = G->v;
+	int i;
+	G->v = n;
+	AdjList *tempArr;
+	tempArr = (AdjList*)malloc(n*sizeof(AdjList));
+	for(i=k; i<n; i++){
+		tempArr[i].head = (AdjListNode*)malloc(sizeof(AdjListNode));
+		tempArr[i].head->id = i;
+		tempArr[i].head->next = NULL;
+	}
+	G->arr = tempArr;
+}
+void deleteNode(graph *G, int i){
+	AdjList tempList;
+	tempList = G->arr[i];
+	AdjListNode *tempNode, *t;
+	tempNode = tempList.head->next;
+	while(tempNode!=NULL){
+		t = tempNode->next;
+		free(tempNode);
+		tempNode = t;
+	}
+	tempNode = tempList.head;
+	printf("lalal %d\n", tempNode->id);
+	tempNode->id = -1;
+	tempNode->next = NULL;
+}
 void DestroyGraph(graph *G){
 	// banana banana banana
 	int i, n = G->v;
 	AdjList tempList;
-	AdjListNode *tempNode;		
+	AdjListNode *tempNode;
+	AdjListNode *t;
 	for(i=0; i<n; i++){
 		tempList = G->arr[i];
-		tempList.head->next = NULL;
-
+		t = tempList.head;
+		if(t->id!=0){
+			while(t!=NULL){
+				tempNode = t->next;
+				free(t);
+				t = tempNode;
+			}
+		}
+		G->v --;
 	}
-	free(G);
+	free(G->arr);
 }
 void addEdge(graph *my_graph, int i, int j){
 
@@ -98,22 +134,6 @@ void printGraph(graph *G){
 		printf("\n");
 	}
 }
-void addNode(graph *my_graph, int n){
-	my_graph = (graph*)realloc(sizeof(graph));
-	int m = my_graph->v;
-	my_graph->v = n;
-	AdjList *tempArr;
-	tempArr = (AdjList*)malloc(num*sizeof(AdjList));
-	int i;
-	for(i=m; i<n; i++){
-		tempArr[i].head = (AdjListNode*)malloc(sizeof(AdjListNode));
-		tempArr[i].head->id = i;
-		tempArr[i].head->next = NULL;
-	}
-	my_graph->arr = tempArr;
-	return my_graph;
-
-}
 void printStats(graph *G){
 	printf("number of nodes: %d\n", G->v);
 	int numEdges=0;
@@ -164,6 +184,16 @@ void main(){
 	deleteEdge(my_graph, 1, 2);
 	printGraph(my_graph);
 	printStats(my_graph);
+//	addNode(my_graph, 10);
+	deleteNode(my_graph, 4);
+	printGraph(my_graph);
 	DestroyGraph(my_graph);
 	printGraph(my_graph);
+	graph *my_graph2=createGraph(5);
+	addEdge(my_graph2, 0, 4);
+	addEdge(my_graph2, 1, 2);
+	addEdge(my_graph2, 0, 3);
+	addEdge(my_graph2, 4, 3);
+	printGraph(my_graph2);
+
 }
