@@ -71,19 +71,17 @@ void DestroyGraph(graph *G){
 				t = tempNode;
 			}
 		}
-		G->v --;
+		(G->v)--;
 	}
 	free(G->arr);
 }
 void addEdge(graph *my_graph, int i, int j){
 
-	if(my_graph->arr[i].head!=NULL){
-		if(i < my_graph->v && j < my_graph->v){
-			AdjListNode *tempNode = (AdjListNode*)malloc(sizeof(AdjListNode));
-			tempNode->id = j;
-			tempNode->next = my_graph->arr[i].head->next; 
-			my_graph->arr[i].head->next = tempNode;
-		}
+	if(my_graph->arr[i].head!=NULL && i < my_graph->v && j < my_graph->v){
+		AdjListNode *tempNode = (AdjListNode*)malloc(sizeof(AdjListNode));
+		tempNode->id = j;
+		tempNode->next = my_graph->arr[i].head->next; 
+		my_graph->arr[i].head->next = tempNode;
 	}
 	if(my_graph->arr[j].head!=NULL){
 		if(j < my_graph->v && i < my_graph->v){
