@@ -55,13 +55,17 @@ void inorder(BST *t){
 	}
 }
 int inorder_pos(BST *t, char a[]){
+/*
 	if(t!=NULL && (strcmp(a, t->abc)!=0)){
 		inorder(t->left);
 		i++;
 		inorder(t->right);
 	}
 	else
+
 		return i;
+*/
+	return 1;
 }
 void preorder(BST *t){
 	if(t!=NULL){

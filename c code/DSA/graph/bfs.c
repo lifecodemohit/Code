@@ -59,46 +59,12 @@ void destroyGraph(graph *g){
 }
 
 void addEgde(graph *my_graph, int i, int j){
-/*
-	if(n->arr[i].head!=n&& i<=g->v && j<=g->v){
-		node *t = g->arr[i].head;
-
-		while(t->next!=NULL && t->id !=j)
-			t = t->next;
-		if(t->next == NULL && t->id!=j){
-			node *tempNode = (node*)nloc(sizeof(nde));
-			tempNode->id = j;n			t->next = tempNode;
-			tempNode->next = NULL;
-		}
-	}
-	if(g->arr[j].head!=NULL && i<=g->v && j<=g->v){
-		node *t = g->arr[j].head;
-		while(t->next!=NULL && t->id !=i)
-			t = t->next;
-		if(t->next == NULL && t->id!=i){
-			node *tempNode = (node*)m
-alloc(sizeof(node));
-			tempNode->id = i;
-			t->next = tempNode;
-			tempNode->next = NULL;
-		}
-	my_graph
-*/
 	if(my_graph->arr[i].head!=NULL && i < my_graph->v && j < my_graph->v){
 		node *tempNode = (node*)malloc(sizeof(node));
 		tempNode->id = j;
 		tempNode->next = my_graph->arr[i].head->next; 
 		my_graph->arr[i].head->next = tempNode;
 	}
-	if(my_graph->arr[j].head!=NULL){
-		if(j < my_graph->v && i < my_graph->v){
-			node *tempNode = (node*)malloc(sizeof(node));
-			tempNode->id = i;
-			tempNode->next = my_graph->arr[j].head->next; 
-			my_graph->arr[j].head->next = tempNode;
-		}
-	}
-
 }
 
 void printGraph(graph *G){

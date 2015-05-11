@@ -1,3 +1,12 @@
+/*
+connections: switch to 7
+XBee connections: TX RX = 0, 1
+INT-D2
+SCL A1
+SDA A2
+
+*/
+//#include <SoftwareSerial.h>
 #include "I2Cdev.h"
 
 #include "MPU6050_6Axis_MotionApps20.h"
@@ -31,6 +40,8 @@ volatile bool mpuInterrupt = false;
 void dmpDataReady() {
     mpuInterrupt = true;
 }
+//SoftwareSerial XBee(0, 1);//RX,TX;
+
 void setup() {
     #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
         Wire.begin();
@@ -38,15 +49,15 @@ void setup() {
     #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
         Fastwire::setup(400, true);
     #endif
-
     Serial.begin(9600);
+//    XBee.begin(9600);
     while (!Serial); // wait for Leonardo enumeration, others continue immediately
     mpu.initialize();
 
     devStatus = mpu.dmpInitialize();
     mpu.setXGyroOffset(0);//220
-    mpu.setYGyroOffset(0);//76
-    mpu.setZGyroOffset(0);//-85
+    mpu.setYGyroOffset(76);//76
+    mpu.setZGyroOffset(-85);//-85
     mpu.setZAccelOffset(1788); // 1688 factory default for my test chip
     mpu.setDMPEnabled(true);
 
@@ -69,10 +80,10 @@ int arry[10];
 int arrz[10];
 int i = 0;
 float sx = 0;float sy=0; float sz=0;
-int flag = 0;
+int flag = 1;
 void loop() {
     int LDRReading = digitalRead(LDR_Pin); 
-//    Serial.println(LDRReading);
+ //   Serial.println(LDRReading);
 //    Serial.println("lalalal");
       if (!dmpReady) return;
       mpuInterrupt = false;
@@ -95,9 +106,10 @@ void loop() {
                 Serial.print("\t");
                 Serial.print(aaReal.y);
                 Serial.print("\t");
-                Serial.println(aaReal.z);
-*/
-            
+                Serial.print(aaReal.z);
+                Serial.print("\t");
+                Serial.println(i);
+*/            
                 if(i<10){
                   arrx[i] = aaReal.x;
                   arry[i] = aaReal.y;
@@ -106,19 +118,39 @@ void loop() {
                 }
                 else{
                   for(int j=0; j<10; j++){
-                    sx +=arrx[i];
-                    sy +=arry[i];
-                    sz +=arrz[i];
+                    sx +=arrx[j];
+                    sy +=arry[j];
+                    sz +=arrz[j];
+                    i=0;
                   }
+//                  Serial.print("lalalala");
+/*
                   Serial.print(sx/10);
                   Serial.print("\t");
                   Serial.print(sy/10);
                   Serial.print("\t");
                   Serial.println(sz/10);
-                  sx = sy = sz = i = 0;
-
+*/
+                  if(sx<0 ){
+                    Serial.print('z');
+//                    XBee.write('z');
+                  }
+                  else if(sy/10 > 10){
+                    Serial.print('d');
+//                    XBee.write('d');
+                  }
+                  else if(sx/10 < -10){
+                    Serial.print('a');
+  //                  XBee.write('a');
+                  }
+                  else{
+                    
+                    Serial.print('w');
+//                    XBee.write('w');
+                  }
                 }
-                }
+               }  
+ /*               
                 else{
                   Serial.println("first reading for callibration..");
                   Serial.print(aaReal.x);
@@ -129,6 +161,8 @@ void loop() {
                   Serial.println("callibrate and here you go....");
                   flag = 1;
                 }
+*/
+               sx = sy = sz = 0;
               
               
           #endif
