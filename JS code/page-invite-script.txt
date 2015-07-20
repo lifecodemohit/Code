@@ -11,3 +11,17 @@ function alpha(){
 	}, 500);
 }
 alpha()
+
+a = document.getElementsByClassName('uiButton _1sm')
+i = 0;
+function alpha(){
+	setTimeout(function(){ 
+	a[i].click();
+	if (i<a.length)
+	{
+		i+=1;
+		alpha();
+	}
+	}, 500);
+}
+alpha()
