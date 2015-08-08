@@ -1,0 +1,8 @@
+
+public class CurrentAccount {
+	public int overdraft = 2000;
+	public void withdraw(double sum){
+		if(sum<0)
+			setBalance(getBalance()-sum);
+	}
+}

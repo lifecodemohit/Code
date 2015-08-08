@@ -1,0 +1,10 @@
+
+public class SavingsAccount extends Account{
+
+	private double interest = 10;
+	public SavingsAccount(int a) {
+		super(a);
+		// TODO Auto-generated constructor stub
+	}
+
+}

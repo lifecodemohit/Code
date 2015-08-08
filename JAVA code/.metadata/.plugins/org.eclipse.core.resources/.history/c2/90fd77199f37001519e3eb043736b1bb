@@ -1,0 +1,8 @@
+
+public class ATM {
+	int id;
+	int deposit;
+	public ATM(int u_id, int depo){
+		
+	}
+}

@@ -1,0 +1,45 @@
+
+public class Book {
+	String bookTitle;
+	String authorName;
+	String isbn;
+	int price;
+	String category;
+	
+	public Book(String bt, String auth, String isbn_, int pri, String cate){
+		bookTitle = bt;
+		authorName = auth;
+		isbn = isbn_;
+		price = pri;
+		category = cate;		
+	}
+	public void setTitle(String bt){
+		bookTitle = bt;
+	}
+	public void setAuthor(String auth){
+		authorName = auth;
+	}
+	public void set_isbn(String isbn_){
+		isbn = isbn_;
+	}
+	public void setPrice(int pri){
+		price = pri;
+	}
+	public void setCate(String cate){
+		category = cate;
+	}
+	public String getTitle(){
+		return bookTitle;
+	}
+	public String getAuthor(){
+		return authorName;
+	}
+	public String get_isbn(){
+		return isbn;
+	}
+	
+	public static void main(String[] args){
+		
+	}
+	
+}

@@ -1,0 +1,6 @@
+
+public class Account {
+	int id;
+	int deposit;
+	
+}
