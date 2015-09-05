@@ -1,0 +1,53 @@
+package com.iiitd.ap.lab3;
+
+import java.util.ArrayList;
+import java.lang.*;
+@SuppressWarnings("unused")
+public class Person {
+	
+	public Login_details log;
+	public static String name;
+	
+//	ArrayList<String> friends = new ArrayList<String>();
+	
+	public Person(String s, String uname, String pswrd){
+		this.name = s;
+		this.log.set_login(uname, pswrd);
+		ArrayList<Person> friends = new ArrayList<Person>();
+		SocialNetwork.global_map.put(this, friends);
+	}
+	
+	public void addFriend(Person p){
+		ArrayList<Person> temp = SocialNetwork.global_map.get(this);
+		temp.add(p);
+		SocialNetwork.global_map.put(this, temp);
+	}
+	
+	public ArrayList<Person> get_mutual_friends(Person p){
+		ArrayList<Person> friends = SocialNetwork.global_map.get(this);
+		ArrayList<Person> theirFriends = SocialNetwork.global_map.get(p);
+		ArrayList<Person> mutualFriends = new ArrayList<Person>();
+		for(int i = 0; i<theirFriends.size(); i++ ){
+			for(int j = 0; j< friends.size(); j++){
+				if(theirFriends.get(i).equals(friends.get(j))){
+					mutualFriends.add(friends.get(j));
+					break;
+				}
+			}
+		}
+		return mutualFriends;
+	}
+	
+	public ArrayList<Person> getFriendList(){
+		return SocialNetwork.global_map.get(this);
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void setName(String s){
+		name = s;
+	}
+
+}

@@ -1,5 +1,0 @@
-
-public class CurrentAccount {
-	public int overdraft = 2000;
-	
-}

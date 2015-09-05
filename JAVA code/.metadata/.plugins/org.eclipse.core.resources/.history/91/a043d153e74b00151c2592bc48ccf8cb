@@ -1,0 +1,14 @@
+package com.iiitd.ap.lab3;
+
+public class Incorrect_Credentials_Exception extends java.lang.Exception{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public Incorrect_Credentials_Exception() {
+		System.out.println(Invalid login details);
+	}
+
+}

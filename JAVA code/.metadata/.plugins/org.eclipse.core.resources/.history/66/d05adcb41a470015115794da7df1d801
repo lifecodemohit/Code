@@ -1,0 +1,82 @@
+//@author Varun Bansal 2013168
+
+
+package com.iiitd.ap.lab2;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+
+public class AllocationSystem{
+	public int numOfTAs;
+	ArrayList<Applicant> phd = new ArrayList<Applicant>();
+	ArrayList<Applicant> pg= new ArrayList<Applicant>();
+	ArrayList<Applicant> ug= new ArrayList<Applicant>();
+	ArrayList<Applicant> shortlist = new ArrayList<Applicant>();
+	public int phdcount = 0;
+	public int pgcount = 0;
+	public int ugcount = 0;
+	public AllocationSystem(int n){
+		this.numOfTAs = n;
+	}
+	public ArrayList<Applicant> getshortlist(ArrayList<Applicant> al) throws InvalidInputException{	
+		try{
+			if(al.size() != numOfTAs ){
+			     throw new InvalidInputException();				
+			}
+			int i=0;
+			while(i < al.size() && i<numOfTAs){
+				Applicant a = al.get(i);
+				if(a.prog == 3)
+					phd.add(a);
+				else if(a.prog == 2)
+					pg.add(a);
+				else if(a.prog == 1 )
+					ug.add(a);
+				else
+					throw new InvalidInputException();
+			}
+			Collections.sort(phd);
+			Collections.sort(pg);
+			Collections.sort(ug);
+
+			while(i < numOfTAs/2 && i<phd.size() && shortlist.size()<numOfTAs){
+				if(i < phd.size() ){
+					Applicant a = phd.get(i);
+					shortlist.add(a);
+					phdcount ++;
+				}
+				else
+					break;
+			}
+			i = 0;
+			while(i < numOfTAs/2 && i<pg.size() && shortlist.size()<numOfTAs){
+				if(i < pg.size() ){
+					Applicant a = pg.get(i);
+					shortlist.add(a);
+					pgcount ++;
+				}
+				else
+					break;
+			}
+			i = 0;
+			while(i < Math.floor(.3 * numOfTAs) && i<ug.size() && shortlist.size()<numOfTAs){
+				if(i < ug.size() ){
+					Applicant a = ug.get(i);
+					shortlist.add(a);
+					ugcount ++;
+				}
+				else
+					break;
+			}
+			return shortlist;
+
+		}
+		catch(IndexOutOfBoundsException e){
+		}
+			
+		return shortlist;
+		
+	}
+	
+}

@@ -1,0 +1,66 @@
+package com.iiitd.ap.lab3;
+
+import java.io.IOException;
+import java.lang.*;
+import java.io.Console;
+
+@SuppressWarnings("unused")
+public class Login_details extends Object{
+	private static final Exception IOException = null;
+	public int flag; //track login status
+	private String password; //password
+	private String username; //username
+	
+	public Login_details(String pswrd, String uname){
+		password = pswrd;
+		username = uname;
+		
+	}
+	
+	private boolean isloggedin(){
+		if (flag==1) return true; 
+		else return false;
+	}
+	
+	public void login() throws Incorrect_Credentials_Exception, IOException{
+		Console console = System.console();
+		String uname = console.readLine("username: ");
+		String pswrd = new String(console.readPassword("Password: "));
+		if(verify_login(uname, pswrd)==true){
+			flag = 1;
+		}
+		else{
+			throw new Incorrect_Credentials_Exception();
+		}	
+	}
+	public void logout(){
+		flag = 0;
+	}
+	void set_login(String uname, String pswrd){
+		password = pswrd;
+		username = uname;
+	}
+	
+	private boolean verify_login(String temp_name, String temp_pword){
+		if(temp_name.equals(username) && temp_pword.equals(password)){
+			return true;
+		}		
+		else{
+			return false;
+		}
+	}
+	
+	
+}
+class Incorrect_Credentials_Exception extends java.lang.Exception{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	Incorrect_Credentials_Exception() {
+		System.out.println("Invalid login details");
+	}
+
+}

@@ -9,4 +9,18 @@
 <fullyQualifiedTypeName name="java.awt.EventQueue"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
+<fullyQualifiedTypeName name="cam.iiitd.ap.lab1.InsertionSorting"/>
+<fullyQualifiedTypeName name="exceptionHandling.MyException"/>
+<fullyQualifiedTypeName name="com.iiitd.ap.lab2.AllocationSystem"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
+<fullyQualifiedTypeName name="com.iiitd.ap.lab2.Applicant"/>
+<fullyQualifiedTypeName name="com.iiitd.ap.lab2.InvalidInputException"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.lang.Comparable"/>
+<fullyQualifiedTypeName name="com.iiitd.ap.lab3.Incorrect_Credentials_Exception"/>
+<fullyQualifiedTypeName name="java.lang.Package"/>
+<fullyQualifiedTypeName name="com.iiitd.ap.lab3.SocialNetwork"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.iiitd.ap.lab3.Person"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
 </qualifiedTypeNameHistroy>

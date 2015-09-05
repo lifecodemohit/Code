@@ -1,7 +1,8 @@
-# import sys
+import sys
 # print sys.maxint
 def knapsack(W, wt, val, n):
 	K = [[0. for i in range(W+1)] for j in range(n+1)]
+	# print K
 	for i in range(n+1):
 		for w in range(W+1):
 			if(i==0 or w==0):
@@ -11,6 +12,15 @@ def knapsack(W, wt, val, n):
 			else:
 				K[i][w] = K[i-1][w]
 	return K[n][W]
+# def knapsack(W, wt, val, n):
+# 	if(n==0 or W ==0):
+# 		return 0
+# 	if(wt[n-1]>W):
+# 		return knapsack(W, wt, val, n-1)
+# 	else:
+# 		return max(val[n-1]+knapsack(W-wt[n-1], wt, val, n-1), knapsack(W, wt, val, n-1))
+
+
 
 test = input()
 while(test>0):

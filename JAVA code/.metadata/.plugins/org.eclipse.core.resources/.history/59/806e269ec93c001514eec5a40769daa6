@@ -1,8 +1,0 @@
-
-public class AccountTest extends Account{
-
-	public AccountTest(int a) {
-		return a;
-	}
-
-}

@@ -38,4 +38,7 @@
 		<item value="true" key="expanded1"/>
 		<item value="true" key="expanded0"/>
 	</section>
+	<section name="NewPackageWizardPage">
+		<item value="false" key="create_package_info_java"/>
+	</section>
 </section>
